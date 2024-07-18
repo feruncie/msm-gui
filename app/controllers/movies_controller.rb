@@ -10,11 +10,11 @@ class MoviesController < ApplicationController
     m.description = params.fetch("the_description")
     m.image = params.fetch("the_image")
     m.director_id = params.fetch("the_director_id")
-
+    
     m.save
 
     redirect_to("/movies")
-    
+
     #Retrieve the user's inputs from params
     #create a record in movie table
     #Populate each column with the user input 
@@ -22,6 +22,17 @@ class MoviesController < ApplicationController
     #redirect user back to /movies URL 
   end 
   
+  def destroy
+    the_id = params.fetch("an_id")
+
+    matching_records = Movie.where({ :id => the_id })
+
+    the_movie = matching_records.at(0)
+
+    the_movie.destroy
+
+    redirect_to("/movies")
+  end 
   
   def index
     matching_movies = Movie.all
